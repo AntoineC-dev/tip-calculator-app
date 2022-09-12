@@ -70,6 +70,7 @@
   --space-lg: 2rem;
   --space-xl: 2.5rem;
   --space-2xl: 3rem;
+  --space-3xl: 3.125rem;
 }
 
 @media (--screen-tablet) {
