@@ -4,12 +4,14 @@ import styles from './InputWrapper.module.css';
 
 interface InputProps extends Pick<ComponentProps<'div'>, 'children' | 'id'> {
   label: string;
+  type?: 'dense' | 'normal';
   error: Accessor<string | undefined>;
 }
 
-const Input: Component<InputProps> = ({ error, label, id, ...props }: InputProps) => {
+const Input: Component<InputProps> = ({ error, label, id, type = 'dense', ...props }: InputProps) => {
+  console.log(type);
   return (
-    <div class={styles.container}>
+    <div data-type={type} class={styles.container}>
       <div class={styles.inner}>
         <label id={id} class={styles.label}>
           {label}

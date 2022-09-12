@@ -1,6 +1,10 @@
 .container {
   display: flex;
   flex-direction: column;
+  gap: var(--space-base);
+}
+
+.container[data-type='dense'] {
   gap: var(--space-sm);
 }
 

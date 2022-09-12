@@ -34,7 +34,7 @@ const App: Component = () => {
               placeholder="0"
             />
           </InputWrapper>
-          <InputWrapper label="Select Tip %" error={percentageError}>
+          <InputWrapper label="Select Tip %" error={percentageError} type="normal">
             <div class={styles.keys}>
               <For each={radioButtons}>
                 {(radio) => (
