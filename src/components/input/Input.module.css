@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-base);
+  height: 3rem;
+  padding-inline: var(--space-base);
+  background-color: hsl(var(--clr-muted));
+  border-radius: var(--br-base);
+  border: var(--border-base);
+  transition: border-color 150ms linear;
+}
+
+.container:focus-within {
+  border: var(--border-accent);
+}
+
+.container[data-error='true'] {
+  border: var(--border-error);
+}
+
+.icon {
+  height: 1rem;
+}
+
+.input {
+  font-size: var(--fs-lg);
+  text-align: end;
+  width: 100%;
+}
+
+.input:where(:first-child) {
+  text-align: center;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: hsl(var(--clr-neutral-400));
+  opacity: 0.35;
+}
