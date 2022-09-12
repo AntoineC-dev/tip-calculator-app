@@ -9,8 +9,6 @@ module.exports = {
         'media-query-ranges': true,
         'custom-selectors': true,
       },
-      // importFrom: './src/index.css',
-      // exportTo: './src/**/*.module.css',
     }),
   ],
 };
