@@ -60,8 +60,8 @@
 
   /* border */
   --border-base: 2px solid transparent;
-  --border-accent: 2px solid var(--clr-accent-200);
-  --border-error: 2px solid var(--clr-error);
+  --border-accent: 2px solid hsl(var(--clr-accent-200));
+  --border-error: 2px solid hsl(var(--clr-error));
 
   /* spacing */
   --space-sm: 0.375rem;
@@ -70,7 +70,6 @@
   --space-lg: 2rem;
   --space-xl: 2.5rem;
   --space-2xl: 3rem;
-  --space-3xl: 3.125rem;
 }
 
 @media (--screen-tablet) {
@@ -132,6 +131,7 @@ body,
 
 :--interactive {
   font: inherit;
+  color: inherit;
   background-color: transparent;
   border: none;
   padding: 0;
@@ -204,4 +204,18 @@ a:not([class]) {
 
 .flow-x > * + * {
   margin-left: var(--flow-x, var(--space-base));
+}
+
+/* ----------------- */
+/* App Container     */
+/* ----------------- */
+
+#root {
+  padding-top: var(--space-2xl);
+}
+
+@media (--screen-tablet) {
+  #root {
+    padding: var(--space-2xl);
+  }
 }
