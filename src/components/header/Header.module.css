@@ -1,0 +1,9 @@
+.header {
+  padding-inline: var(--space-md);
+  margin-block: var(--space-3xl) var(--space-xl);
+  margin-inline: auto;
+}
+
+.logo {
+  width: 87px;
+}
