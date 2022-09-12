@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-base);
+}
+
+.label {
+  color: hsl(var(--clr-neutral-200));
+}
+
+.error {
+  flex: 1;
+  color: hsl(var(--clr-error));
+  text-align: end;
+}
