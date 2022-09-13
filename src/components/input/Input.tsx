@@ -1,27 +1,27 @@
-import { Accessor, Component, ComponentProps, Show } from 'solid-js';
+import { Component, ComponentProps, Show } from 'solid-js';
 
 import styles from './Input.module.css';
 
-interface InputProps extends Omit<ComponentProps<'input'>, 'class' | 'value'> {
+interface InputProps {
+  error?: string;
   icon?: string;
   setValue: (value: string) => void;
-  value: Accessor<string>;
-  error: Accessor<string>;
+  value: string;
+  inputAttrs?: Omit<ComponentProps<'input'>, 'class' | 'value'>;
 }
 
-const Input: Component<InputProps> = ({ error, value, icon, setValue, ...rest }: InputProps) => {
-  // createEffect(() => console.log(`error ${error}`));
+const Input: Component<InputProps> = (props: InputProps) => {
   return (
-    <div class={styles.container} data-error={!!error()}>
-      <Show when={icon}>
-        <img src={icon} alt="" class={styles.icon} />
+    <div class={styles.container} data-error={!!props.error}>
+      <Show when={props.icon}>
+        <img src={props.icon} alt="" class={styles.icon} />
       </Show>
       <input
         type="text"
-        value={value()}
-        onInput={(e) => setValue(e.currentTarget.value)}
+        value={props.value}
+        onInput={(e) => props.setValue(e.currentTarget.value)}
         class={styles.input}
-        {...rest}
+        {...props.inputAttrs}
       />
     </div>
   );

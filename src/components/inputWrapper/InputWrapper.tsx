@@ -1,22 +1,24 @@
-import { Accessor, Component, ComponentProps, Show } from 'solid-js';
+import { Component, Show, JSXElement } from 'solid-js';
 
 import styles from './InputWrapper.module.css';
 
-interface InputProps extends Pick<ComponentProps<'div'>, 'children' | 'id'> {
+interface InputProps {
   label: string;
   type?: 'dense' | 'normal';
-  error: Accessor<string>;
+  error?: string;
+  id?: string;
+  children?: JSXElement;
 }
 
-const Input: Component<InputProps> = ({ error, label, id, type = 'dense', ...props }: InputProps) => {
+const Input: Component<InputProps> = (props: InputProps) => {
   return (
-    <div data-type={type} class={styles.container}>
+    <div data-type={props.type ?? 'dense'} class={styles.container}>
       <div class={styles.inner}>
-        <label id={id} class={styles.label}>
-          {label}
+        <label id={props.id} class={styles.label}>
+          {props.label}
         </label>
-        <Show when={error()}>
-          <span class={styles.error}>{error()}</span>
+        <Show when={props.error}>
+          <span class={styles.error}>{props.error}</span>
         </Show>
       </div>
       {props.children}

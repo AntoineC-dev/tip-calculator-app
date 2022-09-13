@@ -1,53 +1,60 @@
-import { createMemo } from 'solid-js';
-import { createStore, produce } from 'solid-js/store';
-import { getTipValues } from '../utils/math';
+import { batch } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 const validateField = (value: string) => {
-  if (!value) return '';
+  if (!value) return undefined;
   if (value === '0') return "Can't be zero";
-  if (!parseInt(value)) return 'Wrong format';
-  return '';
+  if (!+value) return 'Wrong format';
+  return undefined;
 };
 
-const INITIAL_STATE = {
-  bill: { value: '', error: '' },
-  percentage: { value: '', error: '' },
-  nbOfPeople: { value: '', error: '' },
+interface StoreField {
+  value: string;
+  error?: string;
+}
+
+interface Store {
+  bill: StoreField;
+  percentage: StoreField;
+  nbOfPeople: StoreField;
+  customPercentage: StoreField;
+}
+
+type StoreKey = keyof Store;
+
+const [state, setState] = createStore<Store>({
+  bill: { value: '' },
+  percentage: { value: '' },
+  nbOfPeople: { value: '' },
+  customPercentage: { value: '' },
+});
+
+export default state;
+
+export const setValue = (key: StoreKey) => (value: string) => {
+  const error = validateField(value);
+  batch(() => {
+    if (key === 'customPercentage') {
+      setState(key, 'value', value);
+      setState('percentage', 'value', '');
+      setState('percentage', 'error', error);
+    } else if (key === 'percentage') {
+      setState(key, 'value', value);
+      setState(key, 'error', error);
+      setState('customPercentage', 'value', '');
+    } else {
+      setState(key, 'value', value);
+      setState(key, 'error', error);
+    }
+  });
 };
 
-const [state, setState] = createStore(INITIAL_STATE);
-
-const setCalculator = (key: keyof typeof state) => (value: string) =>
-  setState(key, { value, error: validateField(value) });
-const resetCalculator = () =>
-  setState(
-    produce((current) => {
-      Object.values(current).forEach((field) => {
-        field.value = '';
-        field.error = '';
-      });
-    })
-  );
-
-const bill = createMemo(() => state.bill.value);
-const billError = createMemo(() => state.bill.error);
-
-const percentage = createMemo(() => state.percentage.value);
-const percentageError = createMemo(() => state.percentage.error);
-
-const nbOfPeople = createMemo(() => state.nbOfPeople.value);
-const nbOfPeopleError = createMemo(() => state.nbOfPeople.error);
-
-const results = createMemo(() => getTipValues(bill(), percentage(), nbOfPeople()));
-
-export default {
-  bill,
-  billError,
-  percentage,
-  percentageError,
-  nbOfPeople,
-  nbOfPeopleError,
-  setCalculator,
-  resetCalculator,
-  results,
-};
+export const resetValues = () =>
+  (Object.keys(state) as StoreKey[]).forEach((key) => {
+    if (key === 'customPercentage') {
+      setState(key, 'value', '');
+    } else {
+      setState(key, 'value', '');
+      setState(key, 'error', '');
+    }
+  });

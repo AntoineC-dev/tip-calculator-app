@@ -1,11 +1,12 @@
-import { Component, createMemo, createSignal, For } from 'solid-js';
+import { Component, createMemo, For } from 'solid-js';
 import { Display, Header, Input, InputWrapper, RadioButton } from './components';
-import calculator from './stores/calculator';
+import s, { resetValues, setValue } from './stores/calculator';
 
 import dollar from './assets/dollar.svg';
 import person from './assets/person.svg';
 
 import styles from './App.module.css';
+import { getTipValues } from './utils/math';
 
 const radioButtons = [
   { id: 'five', label: '5%', value: '5' },
@@ -16,37 +17,35 @@ const radioButtons = [
 ];
 
 const App: Component = () => {
-  const resetDisbaled = createMemo(() => !calculator.bill() && !calculator.percentage() && !calculator.nbOfPeople());
-  const [custom, setCustom] = createSignal('', { equals: false });
+  const resetDisabled = createMemo(
+    () => !s.bill.value && !s.percentage.value && !s.nbOfPeople.value && !s.customPercentage.value
+  );
 
-  const onReset = () => {
-    setCustom('');
-    calculator.resetCalculator();
-  };
+  const results = createMemo(() => getTipValues(s.bill.value, s.percentage.value, s.nbOfPeople.value));
+
   return (
     <>
       <Header />
       <main class={styles.calculator}>
         <div class={styles.keyboard}>
-          <InputWrapper id="bill" label="Bill" error={calculator.billError}>
+          <InputWrapper id="bill" label="Bill" error={s.bill.error}>
             <Input
-              aria-labelledby="bill"
               icon={dollar}
-              error={calculator.billError}
-              setValue={calculator.setCalculator('bill')}
-              value={calculator.bill}
-              placeholder="0"
+              error={s.bill.error}
+              value={s.bill.value}
+              setValue={setValue('bill')}
+              inputAttrs={{ placeholder: '0', 'aria-labelledby': 'bill' }}
             />
           </InputWrapper>
-          <InputWrapper label="Select Tip %" error={calculator.percentageError} type="normal">
+          <InputWrapper label="Select Tip %" error={s.percentage.error} type="normal">
             <div class={styles.keys}>
               <For each={radioButtons}>
                 {(radio) => (
                   <RadioButton
                     {...radio}
                     name="percentage"
-                    setValue={calculator.setCalculator('percentage')}
-                    selected={calculator.percentage() === radio.value}
+                    setValue={setValue('percentage')}
+                    selected={s.percentage.value === radio.value}
                   />
                 )}
               </For>
@@ -54,31 +53,29 @@ const App: Component = () => {
                 Custom percentage
               </label>
               <Input
-                aria-labelledby="custom-percentage"
-                error={calculator.percentageError}
-                setValue={calculator.setCalculator('percentage')}
-                value={custom}
-                placeholder="Custom"
+                error={s.percentage.error}
+                value={s.customPercentage.value}
+                setValue={setValue('customPercentage')}
+                inputAttrs={{ placeholder: 'Custom', 'aria-labelledby': 'custom-percentage' }}
               />
             </div>
           </InputWrapper>
-          <InputWrapper id="nb-of-people" label="Number of People" error={calculator.nbOfPeopleError}>
+          <InputWrapper id="nb-of-people" label="Number of People" error={s.nbOfPeople.error}>
             <Input
-              aria-labelledby="bill"
               icon={person}
-              error={calculator.nbOfPeopleError}
-              setValue={calculator.setCalculator('nbOfPeople')}
-              value={calculator.nbOfPeople}
-              placeholder="0"
+              error={s.nbOfPeople.error}
+              value={s.nbOfPeople.value}
+              setValue={setValue('nbOfPeople')}
+              inputAttrs={{ placeholder: '0', 'aria-labelledby': 'nb-of-people' }}
             />
           </InputWrapper>
         </div>
         <div class={styles.display}>
           <div class={styles.results}>
-            <Display label="Tip Amount" value={calculator.results().tipPerPerson} />
-            <Display label="Total" value={calculator.results().total} />
+            <Display label="Tip Amount" value={results().tipPerPerson} />
+            <Display label="Total" value={results().total} />
           </div>
-          <button aria-disabled={resetDisbaled()} class={styles.reset} onClick={onReset}>
+          <button aria-disabled={resetDisabled()} class={styles.reset} onClick={resetValues}>
             Reset <span class="sr-only">all the current values</span>
           </button>
         </div>
