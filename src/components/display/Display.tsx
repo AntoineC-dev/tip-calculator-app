@@ -1,19 +1,24 @@
-import { Component, createEffect, createMemo } from 'solid-js';
-import calculator from '../../stores/calculator';
-import { getTipValues } from '../../utils/math';
+import { Component } from 'solid-js';
 
-export const FORMATTER = new Intl.NumberFormat('en-us', {
+import styles from './Display.module.css';
+
+const FORMATTER = new Intl.NumberFormat('en-us', {
   minimumFractionDigits: 2,
 });
 
-const Display: Component = () => {
-  const results = createMemo(() =>
-    getTipValues(calculator.bill.value, calculator.percentage.value, calculator.nbOfPeople.value)
-  );
+interface DisplayProps {
+  label: string;
+  value: number;
+}
+
+const Display: Component<DisplayProps> = (props: DisplayProps) => {
   return (
-    <div>
-      <p>${FORMATTER.format(results().tipPerPerson || 0)}</p>
-      <p>${FORMATTER.format(results().total || 0)}</p>
+    <div class={styles.container}>
+      <div class={styles.label}>
+        <span>{props.label}</span>
+        <span>/ person</span>
+      </div>
+      <span class={styles.result}>${FORMATTER.format(props.value)}</span>
     </div>
   );
 };

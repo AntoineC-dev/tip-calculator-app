@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.label > span:first-child {
+  color: hsl(var(--clr-light));
+}
+
+.label > span:last-child {
+  color: hsl(var(--clr-neutral-100));
+  font-size: var(--fs-sm);
+}
+
+.result {
+  color: hsl(var(--clr-accent-200));
+  font-size: var(--fs-xl);
+}
