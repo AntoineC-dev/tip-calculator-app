@@ -49,12 +49,19 @@
   font-size: var(--fs-md);
   text-transform: uppercase;
   color: hsl(var(--clr-neutral-400));
-  transition: background-color 150ms linear;
+  border: var(--border-base);
+  transition: background-color 150ms linear, border-color 150ms linear;
 }
 
 .reset:hover,
 .reset:focus {
   background-color: hsl(var(--clr-accent-100));
+}
+
+.reset:focus,
+.reset:focus-visible {
+  outline: none;
+  border: var(--border-accent);
 }
 
 .reset[aria-disabled='true'] {

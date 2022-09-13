@@ -3,6 +3,7 @@
   place-content: center;
   height: 3rem;
   position: relative;
+  /* border: var(--border-base); */
 }
 
 .label {
@@ -30,7 +31,14 @@
   border: none;
   padding: 0;
   background-color: hsl(var(--clr-neutral-400));
-  transition: background-color 150ms linear;
+  transition: background-color 150ms linear, border-color 150ms linear;
+  border: var(--border-base);
+}
+
+.radio:focus,
+.radio:focus-visible {
+  outline: none;
+  border: var(--border-accent);
 }
 
 .radio[aria-selected='true'] {
