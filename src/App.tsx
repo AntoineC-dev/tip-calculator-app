@@ -1,6 +1,9 @@
-import { Component, createEffect, createSignal, For } from 'solid-js';
-import { Header, Input, InputWrapper, RadioButton } from './components';
+import { Component, createEffect, createMemo, createSignal, For } from 'solid-js';
+import { Display, Header, Input, InputWrapper, RadioButton } from './components';
+import calculator, { setCalculatorValue } from './stores/calculator';
+
 import dollar from './assets/dollar.svg';
+import person from './assets/person.svg';
 
 import styles from './App.module.css';
 
@@ -13,12 +16,9 @@ const radioButtons = [
 ];
 
 const App: Component = () => {
-  const [bill, setBill] = createSignal<string>('');
-  const [billError] = createSignal<string | undefined>('Wrong format');
-  const [percentage, setPercentage] = createSignal<string>('5');
-  const [percentageError] = createSignal<string | undefined>('Wrong format');
-  const [customPercentage, setCustomPercentage] = createSignal<string>('');
-
+  const billError = createMemo(() => calculator.bill.error);
+  const percentageError = createMemo(() => calculator.percentage.error);
+  const nbOfPeopleError = createMemo(() => calculator.nbOfPeople.error);
   return (
     <>
       <Header />
@@ -29,8 +29,8 @@ const App: Component = () => {
               aria-labelledby="bill"
               icon={dollar}
               error={billError}
-              setValue={setBill}
-              value={bill()}
+              setValue={setCalculatorValue('bill')}
+              value={calculator.bill.value}
               placeholder="0"
             />
           </InputWrapper>
@@ -41,8 +41,8 @@ const App: Component = () => {
                   <RadioButton
                     {...radio}
                     name="percentage"
-                    setValue={setPercentage}
-                    selected={percentage() === radio.value}
+                    setValue={setCalculatorValue('percentage')}
+                    selected={calculator.percentage.value === radio.value}
                   />
                 )}
               </For>
@@ -52,13 +52,23 @@ const App: Component = () => {
               <Input
                 aria-labelledby="custom-percentage"
                 error={percentageError}
-                setValue={setPercentage}
-                value={customPercentage()}
+                setValue={setCalculatorValue('percentage')}
                 placeholder="Custom"
               />
             </div>
           </InputWrapper>
+          <InputWrapper id="nb-of-people" label="Number of People" error={nbOfPeopleError}>
+            <Input
+              aria-labelledby="bill"
+              icon={person}
+              error={nbOfPeopleError}
+              setValue={setCalculatorValue('nbOfPeople')}
+              value={calculator.nbOfPeople.value}
+              placeholder="0"
+            />
+          </InputWrapper>
         </div>
+        <Display />
       </main>
     </>
   );

@@ -1,14 +1,15 @@
-import { Accessor, Component, ComponentProps, Setter, Show } from 'solid-js';
+import { Accessor, Component, ComponentProps, createEffect, Show } from 'solid-js';
 
 import styles from './Input.module.css';
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'class'> {
   icon?: string;
-  setValue: Setter<string>;
-  error: Accessor<string | undefined>;
+  setValue: (value: string) => void;
+  error: Accessor<string>;
 }
 
 const Input: Component<InputProps> = ({ error, icon, setValue, ...rest }: InputProps) => {
+  // createEffect(() => console.log(`error ${error}`));
   return (
     <div class={styles.container} data-error={!!error()}>
       <Show when={icon}>

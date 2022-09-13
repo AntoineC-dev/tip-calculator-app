@@ -1,4 +1,4 @@
-import { Component, Setter } from 'solid-js';
+import { Component } from 'solid-js';
 
 import styles from './RadioButton.module.css';
 
@@ -8,7 +8,7 @@ interface RadioButtonProps {
   label: string;
   value: string;
   selected: boolean;
-  setValue: Setter<string>;
+  setValue: (value: string) => void;
 }
 
 const RadioButton: Component<RadioButtonProps> = (props: RadioButtonProps) => {
@@ -26,6 +26,12 @@ const RadioButton: Component<RadioButtonProps> = (props: RadioButtonProps) => {
         type="radio"
         value={props.value}
         onInput={(e) => props.setValue(e.currentTarget.value)}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            props.setValue(e.currentTarget.value);
+          }
+        }}
       />
     </div>
   );
