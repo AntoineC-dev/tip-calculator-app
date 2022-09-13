@@ -64,7 +64,7 @@
   border: var(--border-accent);
 }
 
-.reset[aria-disabled='true'] {
+.reset.disabled {
   cursor: not-allowed;
   background-color: hsl(var(--clr-accent-300));
 }

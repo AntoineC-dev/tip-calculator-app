@@ -14,7 +14,7 @@
   border: var(--border-accent);
 }
 
-.container[data-error='true'] {
+.container.error {
   border: var(--border-error);
 }
 

@@ -4,7 +4,7 @@ import styles from './InputWrapper.module.css';
 
 interface InputWrapperProps {
   label: string;
-  type?: 'dense' | 'normal';
+  loose?: boolean;
   error?: string;
   id?: string;
   children?: JSXElement;
@@ -12,7 +12,7 @@ interface InputWrapperProps {
 
 const InputWrapper: Component<InputWrapperProps> = (props: InputWrapperProps) => {
   return (
-    <div data-type={props.type ?? 'dense'} class={styles.container}>
+    <div classList={{ [styles.container]: true, [styles.loose]: props.loose }}>
       <div class={styles.inner}>
         <label id={props.id} class={styles.label}>
           {props.label}

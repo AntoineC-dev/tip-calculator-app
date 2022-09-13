@@ -13,7 +13,7 @@ interface RadioButtonProps {
 
 const RadioButton: Component<RadioButtonProps> = (props: RadioButtonProps) => {
   return (
-    <div data-selected={`${props.selected}`} class={styles.container}>
+    <div classList={{ [styles.container]: true, [styles.selected]: props.selected }}>
       <label for={props.id} class={styles.label}>
         {props.label}
       </label>

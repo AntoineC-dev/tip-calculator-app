@@ -38,7 +38,7 @@ const App: Component = () => {
               aria-labelledby="bill"
             />
           </InputWrapper>
-          <InputWrapper label="Select Tip %" error={s.percentage.error} type="normal">
+          <InputWrapper label="Select Tip %" error={s.percentage.error} loose={true}>
             <div class={styles.keys}>
               <For each={radioButtons}>
                 {(radio) => (
@@ -78,7 +78,7 @@ const App: Component = () => {
             <Display label="Tip Amount" value={results().tipPerPerson} />
             <Display label="Total" value={results().total} />
           </div>
-          <button aria-disabled={resetDisabled()} class={styles.reset} onClick={resetValues}>
+          <button classList={{ [styles.reset]: true, [styles.disabled]: resetDisabled() }} onClick={resetValues}>
             Reset <span class="sr-only">all the current values</span>
           </button>
         </div>

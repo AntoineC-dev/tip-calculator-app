@@ -14,8 +14,8 @@
   z-index: 1;
   transition: color 150ms linear;
 }
-.container[data-selected='false']:focus-within .label,
-.container[data-selected='false']:hover .label {
+.container:not(.selected):focus-within .label,
+.container:not(.selected):hover .label {
   color: hsl(var(--clr-neutral-400));
 }
 
@@ -46,7 +46,7 @@
   background-color: hsl(var(--clr-accent-200));
 }
 
-.container[data-selected='false']:focus-within .radio,
-.container[data-selected='false']:hover .radio {
+.container:not(.selected):focus-within .radio,
+.container:not(.selected):hover .radio {
   background-color: hsl(var(--clr-accent-100));
 }
