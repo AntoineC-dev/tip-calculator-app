@@ -1,4 +1,6 @@
+import { createMemo } from 'solid-js';
 import { createStore, produce } from 'solid-js/store';
+import { getTipValues } from '../utils/math';
 
 const validateField = (value: string) => {
   if (!value) return '';
@@ -7,20 +9,45 @@ const validateField = (value: string) => {
   return '';
 };
 
-const [calculator, setCalculator] = createStore({
+const INITIAL_STATE = {
   bill: { value: '', error: '' },
   percentage: { value: '', error: '' },
   nbOfPeople: { value: '', error: '' },
-});
+};
 
-export type CalculatorKey = keyof typeof calculator;
+const [state, setState] = createStore(INITIAL_STATE);
 
-export default calculator;
-export const setCalculatorValue = (key: keyof typeof calculator) => (value: string) => {
-  setCalculator(
-    produce((prev) => {
-      prev[key].value = value;
-      prev[key].error = validateField(value);
+const setCalculator = (key: keyof typeof state) => (value: string) =>
+  setState(key, { value, error: validateField(value) });
+const resetCalculator = () =>
+  setState(
+    produce((current) => {
+      Object.values(current).forEach((field) => {
+        field.value = '';
+        field.error = '';
+      });
     })
   );
+
+const bill = createMemo(() => state.bill.value);
+const billError = createMemo(() => state.bill.error);
+
+const percentage = createMemo(() => state.percentage.value);
+const percentageError = createMemo(() => state.percentage.error);
+
+const nbOfPeople = createMemo(() => state.nbOfPeople.value);
+const nbOfPeopleError = createMemo(() => state.nbOfPeople.error);
+
+const results = createMemo(() => getTipValues(bill(), percentage(), nbOfPeople()));
+
+export default {
+  bill,
+  billError,
+  percentage,
+  percentageError,
+  nbOfPeople,
+  nbOfPeopleError,
+  setCalculator,
+  resetCalculator,
+  results,
 };

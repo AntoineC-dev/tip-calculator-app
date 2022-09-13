@@ -1,6 +1,6 @@
-import { Component, createEffect, createMemo, createSignal, For } from 'solid-js';
+import { Component, createMemo, createSignal, For } from 'solid-js';
 import { Display, Header, Input, InputWrapper, RadioButton } from './components';
-import calculator, { setCalculatorValue } from './stores/calculator';
+import calculator from './stores/calculator';
 
 import dollar from './assets/dollar.svg';
 import person from './assets/person.svg';
@@ -16,33 +16,37 @@ const radioButtons = [
 ];
 
 const App: Component = () => {
-  const billError = createMemo(() => calculator.bill.error);
-  const percentageError = createMemo(() => calculator.percentage.error);
-  const nbOfPeopleError = createMemo(() => calculator.nbOfPeople.error);
+  const resetDisbaled = createMemo(() => !calculator.bill() && !calculator.percentage() && !calculator.nbOfPeople());
+  const [custom, setCustom] = createSignal('', { equals: false });
+
+  const onReset = () => {
+    setCustom('');
+    calculator.resetCalculator();
+  };
   return (
     <>
       <Header />
       <main class={styles.calculator}>
         <div class={styles.keyboard}>
-          <InputWrapper id="bill" label="Bill" error={billError}>
+          <InputWrapper id="bill" label="Bill" error={calculator.billError}>
             <Input
               aria-labelledby="bill"
               icon={dollar}
-              error={billError}
-              setValue={setCalculatorValue('bill')}
-              value={calculator.bill.value}
+              error={calculator.billError}
+              setValue={calculator.setCalculator('bill')}
+              value={calculator.bill}
               placeholder="0"
             />
           </InputWrapper>
-          <InputWrapper label="Select Tip %" error={percentageError} type="normal">
+          <InputWrapper label="Select Tip %" error={calculator.percentageError} type="normal">
             <div class={styles.keys}>
               <For each={radioButtons}>
                 {(radio) => (
                   <RadioButton
                     {...radio}
                     name="percentage"
-                    setValue={setCalculatorValue('percentage')}
-                    selected={calculator.percentage.value === radio.value}
+                    setValue={calculator.setCalculator('percentage')}
+                    selected={calculator.percentage() === radio.value}
                   />
                 )}
               </For>
@@ -51,24 +55,33 @@ const App: Component = () => {
               </label>
               <Input
                 aria-labelledby="custom-percentage"
-                error={percentageError}
-                setValue={setCalculatorValue('percentage')}
+                error={calculator.percentageError}
+                setValue={calculator.setCalculator('percentage')}
+                value={custom}
                 placeholder="Custom"
               />
             </div>
           </InputWrapper>
-          <InputWrapper id="nb-of-people" label="Number of People" error={nbOfPeopleError}>
+          <InputWrapper id="nb-of-people" label="Number of People" error={calculator.nbOfPeopleError}>
             <Input
               aria-labelledby="bill"
               icon={person}
-              error={nbOfPeopleError}
-              setValue={setCalculatorValue('nbOfPeople')}
-              value={calculator.nbOfPeople.value}
+              error={calculator.nbOfPeopleError}
+              setValue={calculator.setCalculator('nbOfPeople')}
+              value={calculator.nbOfPeople}
               placeholder="0"
             />
           </InputWrapper>
         </div>
-        <Display />
+        <div class={styles.display}>
+          <div class={styles.results}>
+            <Display label="Tip Amount" value={calculator.results().tipPerPerson} />
+            <Display label="Total" value={calculator.results().total} />
+          </div>
+          <button aria-disabled={resetDisbaled()} class={styles.reset} onClick={onReset}>
+            Reset <span class="sr-only">all the current values</span>
+          </button>
+        </div>
       </main>
     </>
   );
