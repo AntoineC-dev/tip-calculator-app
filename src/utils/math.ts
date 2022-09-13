@@ -1,10 +1,14 @@
 export const getTipValues = (
-  bill: string,
-  percentage: string,
-  nbOfPeople: string
+  strBill: string,
+  strPercentage: string,
+  strNbOfPeople: string
 ): { total: number; tipPerPerson: number } => {
-  if (!+bill || !+percentage || !+nbOfPeople) return { total: 0, tipPerPerson: 0 };
-  const total = +bill * (+percentage / 100);
-  const tipPerPerson = total / +nbOfPeople;
+  const bill = +strBill,
+    percentage = +strPercentage,
+    nbOfPeople = +strNbOfPeople;
+  if (!bill || !percentage || !nbOfPeople) return { total: 0, tipPerPerson: 0 };
+  const tipsTotal = bill * (percentage / 100);
+  const tipPerPerson = tipsTotal / nbOfPeople;
+  const total = (bill + tipsTotal) / nbOfPeople;
   return { total, tipPerPerson };
 };
