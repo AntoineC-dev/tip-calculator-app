@@ -2,7 +2,7 @@ import { Component, Show, JSXElement } from 'solid-js';
 
 import styles from './InputWrapper.module.css';
 
-interface InputProps {
+interface InputWrapperProps {
   label: string;
   type?: 'dense' | 'normal';
   error?: string;
@@ -10,7 +10,7 @@ interface InputProps {
   children?: JSXElement;
 }
 
-const Input: Component<InputProps> = (props: InputProps) => {
+const InputWrapper: Component<InputWrapperProps> = (props: InputWrapperProps) => {
   return (
     <div data-type={props.type ?? 'dense'} class={styles.container}>
       <div class={styles.inner}>
@@ -26,4 +26,4 @@ const Input: Component<InputProps> = (props: InputProps) => {
   );
 };
 
-export default Input;
+export default InputWrapper;

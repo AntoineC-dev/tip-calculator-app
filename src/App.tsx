@@ -34,7 +34,8 @@ const App: Component = () => {
               error={s.bill.error}
               value={s.bill.value}
               setValue={setValue('bill')}
-              inputAttrs={{ placeholder: '0', 'aria-labelledby': 'bill' }}
+              placeholder="0"
+              aria-labelledby="bill"
             />
           </InputWrapper>
           <InputWrapper label="Select Tip %" error={s.percentage.error} type="normal">
@@ -56,7 +57,8 @@ const App: Component = () => {
                 error={s.percentage.error}
                 value={s.customPercentage.value}
                 setValue={setValue('customPercentage')}
-                inputAttrs={{ placeholder: 'Custom', 'aria-labelledby': 'custom-percentage' }}
+                placeholder="Custom"
+                aria-labelledby="custom-percentage"
               />
             </div>
           </InputWrapper>
@@ -66,7 +68,8 @@ const App: Component = () => {
               error={s.nbOfPeople.error}
               value={s.nbOfPeople.value}
               setValue={setValue('nbOfPeople')}
-              inputAttrs={{ placeholder: '0', 'aria-labelledby': 'nb-of-people' }}
+              placeholder="0"
+              aria-labelledby="nb-of-people"
             />
           </InputWrapper>
         </div>
