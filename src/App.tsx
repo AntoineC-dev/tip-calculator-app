@@ -1,5 +1,5 @@
 import { Component, createMemo, For } from 'solid-js';
-import { Display, Header, Input, InputWrapper, RadioButton } from './components';
+import { Display, Footer, Header, Input, InputWrapper, RadioButton } from './components';
 import s, { resetValues, setValue } from './stores/calculator';
 import { calculateResults, checkResetDisabled } from './utils/calculator';
 
@@ -89,6 +89,7 @@ const App: Component = () => {
           </button>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

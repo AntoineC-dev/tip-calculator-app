@@ -1,0 +1,26 @@
+.footer {
+  font-size: var(--fs-sm);
+  text-align: center;
+  padding: var(--space-base);
+  color: hsl(var(--clr-neutral-100));
+}
+
+.footer > span {
+  display: inline-block;
+}
+
+.footer a {
+  color: hsl(var(--clr-neutral-400));
+}
+
+@media (--screen-tablet) {
+  .footer {
+    padding-block: var(--space-lg) 0;
+  }
+}
+
+@media (--screen-tablet) {
+  .footer {
+    padding-block: var(--space-xl) 0;
+  }
+}

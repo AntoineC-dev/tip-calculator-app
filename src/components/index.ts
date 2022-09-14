@@ -1,4 +1,5 @@
 export { default as Display } from './display/Display';
+export { default as Footer } from './footer/Footer';
 export { default as Header } from './header/Header';
 export { default as Input } from './input/Input';
 export { default as InputWrapper } from './inputWrapper/InputWrapper';
