@@ -41,7 +41,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/responsive-tip-calculator-app-solidjs-typescript-postcss-VtxEtN6SPI](https://www.frontendmentor.io/solutions/responsive-tip-calculator-app-solidjs-typescript-postcss-VtxEtN6SPI)
 - Live Site URL: [https://tip-calculator-app-dusky.vercel.app/](https://tip-calculator-app-dusky.vercel.app/)
 
 ## My process
