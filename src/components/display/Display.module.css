@@ -21,4 +21,5 @@
 .result {
   color: hsl(var(--clr-accent-200));
   font-size: var(--fs-xl);
+  letter-spacing: var(--ls-tight);
 }
