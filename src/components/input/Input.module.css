@@ -10,6 +10,10 @@
   transition: border-color 150ms linear;
 }
 
+.container.dense {
+  padding-inline: var(--space-sm);
+}
+
 .container:focus-within {
   border: var(--border-accent);
 }

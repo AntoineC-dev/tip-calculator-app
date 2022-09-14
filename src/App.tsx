@@ -51,6 +51,7 @@ const App: Component = () => {
                 Custom percentage
               </label>
               <Input
+                dense={true}
                 error={s.percentage.error}
                 value={s.customPercentage.value}
                 setValue={setValue('customPercentage')}

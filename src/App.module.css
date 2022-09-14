@@ -87,9 +87,6 @@
     padding-block: var(--space-base);
     gap: var(--space-xl);
   }
-  .keys > *:last-child {
-    padding-inline: var(--space-sm);
-  }
   .display {
     padding: var(--space-xl);
   }
