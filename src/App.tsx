@@ -20,6 +20,13 @@ const App: Component = () => {
   const resetDisabled = createMemo(() => checkResetDisabled(s));
   const results = createMemo(() => calculateResults(s));
 
+  let firstInput: HTMLInputElement;
+
+  const onReset = () => {
+    resetValues();
+    firstInput?.focus();
+  };
+
   return (
     <>
       <Header />
@@ -27,6 +34,7 @@ const App: Component = () => {
         <div class={styles.keyboard}>
           <InputWrapper id="bill" label="Bill" error={s.bill.error}>
             <Input
+              ref={firstInput!}
               icon={dollar}
               error={s.bill.error}
               value={s.bill.value}
@@ -76,7 +84,7 @@ const App: Component = () => {
             <Display label="Tip Amount" value={results().tipPerPerson} />
             <Display label="Total" value={results().totalPerPerson} />
           </div>
-          <button classList={{ [styles.reset]: true, [styles.disabled]: resetDisabled() }} onClick={resetValues}>
+          <button classList={{ [styles.reset]: true, [styles.disabled]: resetDisabled() }} onClick={onReset}>
             Reset <span class="sr-only">all the current values</span>
           </button>
         </div>
