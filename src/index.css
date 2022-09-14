@@ -217,11 +217,6 @@ a:not([class]) {
 @media (--screen-tablet) {
   #root {
     padding-block: var(--space-2xl);
-  }
-}
-
-@media (--screen-desktop) {
-  #root {
     justify-content: center;
   }
 }
