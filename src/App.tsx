@@ -1,12 +1,12 @@
 import { Component, createMemo, For } from 'solid-js';
 import { Display, Header, Input, InputWrapper, RadioButton } from './components';
 import s, { resetValues, setValue } from './stores/calculator';
+import { calculateResults, checkResetDisabled } from './utils/calculator';
 
 import dollar from './assets/dollar.svg';
 import person from './assets/person.svg';
 
 import styles from './App.module.css';
-import { getTipValues } from './utils/math';
 
 const radioButtons = [
   { id: 'five', label: '5%', value: '5' },
@@ -17,11 +17,8 @@ const radioButtons = [
 ];
 
 const App: Component = () => {
-  const resetDisabled = createMemo(
-    () => !s.bill.value && !s.percentage.value && !s.nbOfPeople.value && !s.customPercentage.value
-  );
-
-  const results = createMemo(() => getTipValues(s.bill.value, s.percentage.value, s.nbOfPeople.value));
+  const resetDisabled = createMemo(() => checkResetDisabled(s));
+  const results = createMemo(() => calculateResults(s));
 
   return (
     <>
@@ -76,7 +73,7 @@ const App: Component = () => {
         <div class={styles.display}>
           <div class={styles.results}>
             <Display label="Tip Amount" value={results().tipPerPerson} />
-            <Display label="Total" value={results().total} />
+            <Display label="Total" value={results().totalPerPerson} />
           </div>
           <button classList={{ [styles.reset]: true, [styles.disabled]: resetDisabled() }} onClick={resetValues}>
             Reset <span class="sr-only">all the current values</span>

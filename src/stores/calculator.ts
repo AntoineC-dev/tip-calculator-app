@@ -1,5 +1,6 @@
 import { batch } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import type { CalculatorStore, CalculatorStoreKey } from '../types';
 
 const validateField = (value: string) => {
   if (!value) return undefined;
@@ -8,21 +9,7 @@ const validateField = (value: string) => {
   return undefined;
 };
 
-interface StoreField {
-  value: string;
-  error?: string;
-}
-
-interface Store {
-  bill: StoreField;
-  percentage: StoreField;
-  nbOfPeople: StoreField;
-  customPercentage: StoreField;
-}
-
-type StoreKey = keyof Store;
-
-const [state, setState] = createStore<Store>({
+const [state, setState] = createStore<CalculatorStore>({
   bill: { value: '' },
   percentage: { value: '' },
   nbOfPeople: { value: '' },
@@ -31,7 +18,7 @@ const [state, setState] = createStore<Store>({
 
 export default state;
 
-export const setValue = (key: StoreKey) => (value: string) => {
+export const setValue = (key: CalculatorStoreKey) => (value: string) => {
   const error = validateField(value);
   batch(() => {
     if (key === 'customPercentage') {
@@ -50,7 +37,7 @@ export const setValue = (key: StoreKey) => (value: string) => {
 };
 
 export const resetValues = () =>
-  (Object.keys(state) as StoreKey[]).forEach((key) => {
+  (Object.keys(state) as CalculatorStoreKey[]).forEach((key) => {
     if (key === 'customPercentage') {
       setState(key, 'value', '');
     } else {

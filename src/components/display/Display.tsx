@@ -2,13 +2,9 @@ import { Component } from 'solid-js';
 
 import styles from './Display.module.css';
 
-const FORMATTER = new Intl.NumberFormat('en-us', {
-  minimumFractionDigits: 2,
-});
-
 interface DisplayProps {
   label: string;
-  value: number;
+  value: string;
 }
 
 const Display: Component<DisplayProps> = (props: DisplayProps) => {
@@ -18,7 +14,7 @@ const Display: Component<DisplayProps> = (props: DisplayProps) => {
         <span>{props.label}</span>
         <span>/ person</span>
       </div>
-      <span class={styles.result}>${FORMATTER.format(props.value)}</span>
+      <span class={styles.result}>${props.value}</span>
     </div>
   );
 };
