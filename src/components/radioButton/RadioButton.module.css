@@ -3,7 +3,6 @@
   place-content: center;
   height: 3rem;
   position: relative;
-  /* border: var(--border-base); */
 }
 
 .label {
@@ -13,10 +12,6 @@
   transition: color 150ms linear;
   z-index: 1;
   transition: color 150ms linear;
-}
-.container:not(.selected):focus-within .label,
-.container:not(.selected):hover .label {
-  color: hsl(var(--clr-neutral-400));
 }
 
 .radio {
@@ -41,9 +36,18 @@
   border: var(--border-accent);
 }
 
-.radio[aria-selected='true'] {
+.container.selected .label {
+  color: hsl(var(--clr-neutral-400));
+}
+
+.container.selected .radio {
   cursor: not-allowed;
   background-color: hsl(var(--clr-accent-200));
+}
+
+.container:not(.selected):focus-within .label,
+.container:not(.selected):hover .label {
+  color: hsl(var(--clr-neutral-400));
 }
 
 .container:not(.selected):focus-within .radio,
