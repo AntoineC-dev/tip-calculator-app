@@ -18,8 +18,7 @@ const RadioButton: Component<RadioButtonProps> = (props: RadioButtonProps) => {
         {props.label}
       </label>
       <input
-        aria-selected={props.selected}
-        aria-disabled={props.selected}
+        aria-current={props.selected}
         class={styles.radio}
         id={props.id}
         name={props.name}
