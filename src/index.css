@@ -2,9 +2,9 @@
 /* Custom Properties */
 /* ----------------- */
 
-@custom-media --screen-mobile-only (width < 640px);
-@custom-media --screen-tablet (width >= 640px);
-@custom-media --screen-tablet-only (640px <= width < 1024px);
+@custom-media --screen-mobile-only (width < 544px);
+@custom-media --screen-tablet (width >= 544px);
+@custom-media --screen-tablet-only (544px <= width < 1024px);
 @custom-media --screen-desktop (width >= 1024px);
 
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
@@ -216,6 +216,12 @@ a:not([class]) {
 
 @media (--screen-tablet) {
   #root {
-    padding: var(--space-2xl);
+    padding-block: var(--space-2xl);
+  }
+}
+
+@media (--screen-desktop) {
+  #root {
+    justify-content: center;
   }
 }
